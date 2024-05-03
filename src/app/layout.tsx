@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import { ModeToggle } from "@/components/Buttons/ModeToggle";
+import { ModeToggle } from "@/components/ui/ModeToggle";
+import NavBar from "@/components/ui/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,8 +28,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ModeToggle/>
-          {children}
+          <NavBar />
+
+          <div className="p-24">
+            {" "}
+            {/* Add padding top equivalent to the height of your navbar */}
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>
