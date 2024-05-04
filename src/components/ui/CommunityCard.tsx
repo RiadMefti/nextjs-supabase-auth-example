@@ -17,14 +17,11 @@ const CommunityCard: FC<CommunityCardProps> = ({}) => {
     <Card className="w-[350px]">
       <CardHeader>
         <CardTitle>Create project</CardTitle>
-        <CardDescription>
-          <p className="text-justify">
-            {" "}
-            Digital Growth community provides step-by-step roadmap to attract
-            daily pay customers digitally, build an impactful email list, create
-            a well known brand, PROVEN 6-figures in 6 months formula, monthly
-            zoom meet up events to help you grow your customer base.
-          </p>
+        <CardDescription className="text-justify">
+          Digital Growth community provides step-by-step roadmap to attract
+          daily pay customers digitally, build an impactful email list, create a
+          well known brand, PROVEN 6-figures in 6 months formula, monthly zoom
+          meet up events to help you grow your customer base.
         </CardDescription>
       </CardHeader>
       <CardContent>
