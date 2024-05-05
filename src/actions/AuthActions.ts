@@ -34,7 +34,61 @@ export async function login(formData: FormData) {
 }
 
 
+export async function resetPassword(formData: FormData, redirect: string) {
+    const supabase = createClient()
 
+    // type-casting here for convenience
+    // in practice, you should validate your inputs
+    const dataForm = {
+        email: formData.get('email') as string,
+
+
+    }
+
+    console.log(redirect)
+
+    const { error, data } = await supabase.auth.resetPasswordForEmail(dataForm.email, {
+        redirectTo: redirect + '/reset'
+    }
+    )
+
+    if (error) {
+        console.log(error)
+        return error.message
+    }
+
+    console.log(data)
+
+    return null
+}
+
+export async function updatePassword(formData: FormData) {
+    const supabase = createClient()
+
+    // type-casting here for convenience
+    // in practice, you should validate your inputs
+    const dataForm = {
+        password: formData.get('password') as string,
+
+
+    }
+
+    console.log(supabase.auth.getSession())
+
+    const { error, data } = await supabase.auth.updateUser({
+        password: dataForm.password
+
+    })
+
+    if (error) {
+        console.log(error)
+        return error.message
+    }
+
+    revalidatePath('/', 'layout')
+    redirect('/')
+
+}
 export async function signup(formData: FormData) {
     const supabase = createClient()
 
@@ -118,6 +172,11 @@ export async function logout() {
 
 
 
+    revalidatePath('/', 'layout')
+    redirect('/')
+}
+
+export async function revalidate(){
     revalidatePath('/', 'layout')
     redirect('/')
 }
