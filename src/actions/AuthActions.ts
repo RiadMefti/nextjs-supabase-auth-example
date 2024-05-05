@@ -48,7 +48,7 @@ export async function resetPassword(formData: FormData, redirect: string) {
     console.log(redirect)
 
     const { error, data } = await supabase.auth.resetPasswordForEmail(dataForm.email, {
-        redirectTo: process.env.NEXT_PUBLIC_PW_REDIRECT_URL!,
+        redirectTo: redirect
     }
     )
 
