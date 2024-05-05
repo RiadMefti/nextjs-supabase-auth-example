@@ -20,7 +20,11 @@ export default function ResetPasswordComponent() {
 
 
   async function clientAction(formData: FormData) {
-    const result = await resetPassword(formData,  window.location.origin)
+
+
+    const redirectUrl = window.location.origin +"/reset"
+    console.log(redirectUrl)
+    const result = await resetPassword(formData,  redirectUrl)
 
 
     if (result) {

@@ -48,7 +48,7 @@ export async function resetPassword(formData: FormData, redirect: string) {
     console.log(redirect)
 
     const { error, data } = await supabase.auth.resetPasswordForEmail(dataForm.email, {
-        redirectTo: redirect + '/reset'
+        redirectTo: redirect
     }
     )
 
@@ -176,7 +176,7 @@ export async function logout() {
     redirect('/')
 }
 
-export async function revalidate(){
+export async function revalidate() {
     revalidatePath('/', 'layout')
     redirect('/')
 }
