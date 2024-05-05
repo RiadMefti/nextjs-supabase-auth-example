@@ -13,14 +13,21 @@ export async function login(formData: FormData) {
     const dataForm = {
         email: formData.get('email') as string,
         password: formData.get('password') as string,
+
     }
+    console.log(dataForm)
 
     const { error, data } = await supabase.auth.signInWithPassword(dataForm)
 
 
     if (error) {
-        redirect('/error')
+        console.log(error)
+        return error.message
+
+
     }
+
+
 
     revalidatePath('/', 'layout')
     redirect('/')
@@ -33,28 +40,82 @@ export async function signup(formData: FormData) {
 
     // type-casting here for convenience
     // in practice, you should validate your inputs
-    const data = {
+    const dataform = {
         email: formData.get('email') as string,
         password: formData.get('password') as string,
+        options: {
+            data: {
+                username: formData.get('username') as string
+            }
+        }
     }
 
-    const { error } = await supabase.auth.signUp(data)
+    const { error, data } = await supabase.auth.signUp(dataform)
+
+    console.log(formData)
 
     if (error) {
-        redirect('/error')
+        console.log(error)
+        return error.message
     }
+
+
+
+
+
+
 
     revalidatePath('/', 'layout')
     redirect('/')
 }
 
-export async function logout() {
-    console.log('Logging out')
+export async function validateSingup(formData: FormData) {
+    //check if username exists in the database
+    //check if email exists in the database
+    //check if password match
+
     const supabase = createClient()
+
+    const username = formData.get('username') as string
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+    const confirmPassword = formData.get('confirmPassword') as string
+
+    if ((password !== confirmPassword)) {
+        console.log('Passwords do not match')
+        return 'Passwords do not match'
+    }
+
+
+    const { data: user, error } = await supabase.from('users').select('username').eq('username', username).single()
+
+    if (user) {
+        console.log('Username already exists')
+        return 'Username already exists'
+    }
+
+    const { data: userEmail, error: emailError } = await supabase.from('users').select('email').eq('email', email).single()
+
+    if (userEmail) {
+        console.log('Email already exists')
+        return 'Email already exists'
+    }
+
+
+    console.log('all good')
+
+    return null
+
+}
+
+export async function logout() {
+
+    const supabase = createClient()
+
+
 
     await supabase.auth.signOut()
 
-    console.log('Logged out')
 
 
     revalidatePath('/', 'layout')

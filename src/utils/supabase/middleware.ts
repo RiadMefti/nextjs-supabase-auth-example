@@ -54,7 +54,13 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  await supabase.auth.getUser()
+  const { data, error } = await supabase.auth.getUser();
+
+  // Redirect if user is already logged in and tries to access /login or /signup
+  const { pathname } = request.nextUrl;
+  if (data.user && (pathname === '/login' || pathname === '/signUp')) {
+      return NextResponse.redirect(new URL('/', request.url));
+  }
 
   return response
 }

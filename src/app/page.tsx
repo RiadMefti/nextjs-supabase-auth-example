@@ -31,7 +31,7 @@ export default function Home() {
           <SearchBar />
         </div>
 
-        <div className="flex flex-wrap gap-4 ">
+        <div className="flex flex-wrap gap-4 justify-center ">
           {[0, 1, 2, 3, 4, 8, 9, 9, 0, 0, 0, 0, 0, 0].map((key) => (
             <CommunityCard key={key} />
           ))}

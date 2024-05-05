@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { ModeToggle } from "@/components/ui/ModeToggle";
 import NavBar from "@/components/ui/navBar/NavBar";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default function RootLayout({
             {" "}
             {/* Add padding top equivalent to the height of your navbar */}
             {children}
+            <Toaster />
           </div>
         </ThemeProvider>
       </body>
