@@ -1,8 +1,13 @@
 import CommunityCard from "@/components/ui/CommunityCard";
 import SearchBar from "@/components/ui/SearchBar";
-import Image from "next/image";
+import { createClient } from "@/utils/supabase/server";
+import { Community } from "@/utils/types/community";
+import Link from "next/link";
+export default async function Home() {
+  const supabase = createClient();
 
-export default function Home() {
+  const { data } = await supabase.from("community").select("*");
+
   return (
     <main
       style={{
@@ -22,18 +27,20 @@ export default function Home() {
           </h1>
           <div className="text-gray-800 text-base font-bold text-center leading-tight md:text-lg dark:text-gray-300">
             <p>Discover communities or</p>
-            <p className="text-blue-600 underline dark:text-yellow-400">
-              create your own
-            </p>
+            <Link href="/create-community">
+              <p className="text-blue-600 underline dark:text-yellow-400 cursor-pointer">
+                create your own
+              </p>
+            </Link>
           </div>
         </div>
         <div className="w-full max-w-md">
           <SearchBar />
         </div>
 
-        <div className="flex flex-wrap gap-4 justify-center ">
-          {[0, 1, 2, 3, 4, 8, 9, 9, 0, 0, 0, 0, 0, 0].map((key) => (
-            <CommunityCard key={key} />
+        <div className="grid grid-cols-3 gap-4">
+          {data?.map((community: Community, index) => (
+            <CommunityCard key={index} community={community} />
           ))}
         </div>
       </div>

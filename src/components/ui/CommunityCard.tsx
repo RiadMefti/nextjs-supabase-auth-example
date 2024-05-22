@@ -9,26 +9,33 @@ import {
 } from "./card";
 
 import Image from "next/image";
+import { Community } from "@/utils/types/community";
+import { Button } from "./button";
+import { createClient } from "@/utils/supabase/server";
 
-interface CommunityCardProps {}
+interface CommunityCardProps {
+  community: Community;
+}
 
-const CommunityCard: FC<CommunityCardProps> = ({}) => {
+const CommunityCard: FC<CommunityCardProps> = async ({ community }) => {
+  const supabase = createClient();
+  const { data } = await supabase.storage
+    .from("community")
+    .getPublicUrl(community.id);
+  console.log(data);
   return (
-    <Card className="w-[350px]">
-      <CardHeader>
-        <CardTitle>Create project</CardTitle>
-        <CardDescription className="text-justify">
-          Digital Growth community provides step-by-step roadmap to attract
-          daily pay customers digitally, build an impactful email list, create a
-          well known brand, PROVEN 6-figures in 6 months formula, monthly zoom
-          meet up events to help you grow your customer base.
-        </CardDescription>
+    <Card className="w-[400px] min-w-[400px] flex flex-col justify-between ">
+      <CardHeader className="gap-4 h-[350px] ">
+        <CardTitle>{community.name}</CardTitle>
+        <Image src={data.publicUrl} alt={"test"} width={400} height={400} />
       </CardHeader>
       <CardContent>
-        <Image src={"/test.jpg"} alt={"test"} width={300} height={300} />
+        <CardDescription className="text-justify overflow-hidden h-[75px] line-clamp-3">
+          {community.description}
+        </CardDescription>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        Private 22.7k Members
+      <CardFooter className="flex justify-end">
+        <Button>Join</Button>
       </CardFooter>
     </Card>
   );
