@@ -38,6 +38,14 @@ export default function SignUpComponent() {
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
     }
+    else{
+      toast({
+        variant: "default",
+        title: "Account Created",
+        description: "Go check your email to verify your account.",
+        action: <ToastAction altText="Try again">Ok</ToastAction>,
+      });
+    }
     
   }
 
