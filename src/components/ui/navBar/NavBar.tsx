@@ -18,7 +18,7 @@ export default async function NavBar() {
         <div className="flex justify-between h-14 items-center">
           <Link className="flex items-center" href="/">
             <Icon className="h-8 w-8" />
-            <span className="text-gray-900 dark:text-white">Community</span>
+            <span className="text-gray-900 dark:text-white">Auth-Demo</span>
           </Link>
           {data?.user ? <SignedInButton /> : <SignedOutButtons />}
         </div>

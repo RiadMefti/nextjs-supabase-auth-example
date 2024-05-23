@@ -10,6 +10,7 @@ import {
 } from "../dropdown-menu";
 import { LogOut, Settings, User } from "lucide-react";
 import { logout } from "@/actions/AuthActions";
+import Link from "next/link";
 
 interface SignedInButtonProps {}
 
@@ -28,7 +29,10 @@ const SignedInButton: FC<SignedInButtonProps> = ({}) => {
           <DropdownMenuItem>
             <Button variant={"ghost"}>
               <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
+              <span>
+                {" "}
+                <Link href="/settings">Settings</Link>
+              </span>
             </Button>
           </DropdownMenuItem>
           <DropdownMenuItem>

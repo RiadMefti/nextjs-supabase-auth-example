@@ -9,9 +9,9 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Community Central ",
+  title: "SupaBase Auth Demo",
   description:
-    "Community Central is an application designed to enable users to create, manage, and engage with their own online communities through events, posts, and real-time interactions.",
+    "A demo app to showcase email authentication with SupaBase and Next.js",
 };
 
 export default function RootLayout({
